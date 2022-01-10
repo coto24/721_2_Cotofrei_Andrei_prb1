@@ -13,7 +13,9 @@ public class Main {
         try {
             List<Offerte> listeOfferten = repo.readFromFile("C:\\Users\\andre\\Documents\\stuff\\projects\\Java\\721_2_Cotofrei_Andrei_prb1\\src\\com\\company\\offerten.txt", "&");
 
-            System.out.println(listeOfferten);
+            repo.writeToFile("C:\\Users\\andre\\Documents\\stuff\\projects\\Java\\721_2_Cotofrei_Andrei_prb1\\src\\com\\company\\offertensortiert.txt",ctrl.sortListeOffertenNachFinalPreis(listeOfferten),"&");
+
+            repo.writeToFileString("C:\\Users\\andre\\Documents\\stuff\\projects\\Java\\721_2_Cotofrei_Andrei_prb1\\src\\com\\company\\statistik.txt",ctrl.getBiggestEinkommen(listeOfferten).toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

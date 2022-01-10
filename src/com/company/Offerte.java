@@ -74,6 +74,6 @@ public class Offerte {
                 ", mehrwertsteuer=" + mehrwertsteuer +
                 ", adresse='" + adresse + '\'' +
                 ", ort=" + ort +
-                '}';
+                "}\n";
     }
 }

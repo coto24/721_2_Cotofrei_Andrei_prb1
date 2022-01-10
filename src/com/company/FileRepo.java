@@ -36,4 +36,10 @@ public class FileRepo {
         bufferedWriter.close();
     }
 
+    public void writeToFileString(String fileName, String str) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
+        bufferedWriter.write(str);
+        bufferedWriter.close();
+    }
+
 }

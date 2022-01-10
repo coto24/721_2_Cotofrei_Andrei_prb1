@@ -1,8 +1,10 @@
 package com.company;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.company.Ort.*;
+import static java.util.stream.Collectors.*;
 
 public class ListController {
     /*public List<Tier> sortListeTiereByName(List<Tier> liste) {
@@ -36,14 +38,33 @@ public class ListController {
         return maxLocation.getKey() + ": " + maxLocation.getValue();
     }*/
 
-    public List<Offerte> sortListeOffertenNachPreis(List<Offerte> liste) {
-        return liste.stream()
-                .sorted((o1, o2) -> (int) (o2.getPreis() + o2.getPreis()*o2.getMehrwertsteuer() - o1.getPreis() + o1.getPreis()*o1.getMehrwertsteuer()))
+    public List<Offerte> sortListeOffertenNachFinalPreis(List<Offerte> liste) {
+        List<Offerte> aux_liste = liste;
+        calculateLastPrice(aux_liste);
+        return aux_liste.stream()
+                .sorted((o1, o2) -> (int) (o2.getPreis() - o1.getPreis()))
                 .collect(Collectors.toList());
     }
 
-    public List<Offerte> calculateLastPrice(List<Offerte> liste){
-        return liste.stream()
-                .forEach();
+    public void calculateLastPrice(List<Offerte> liste){
+        liste.stream().forEach(offer -> offer.setPreis((int) (offer.getPreis()+ offer.getPreis()* offer.getMehrwertsteuer()/100)));
+    }
+
+    public Map<String,Integer> getBiggestEinkommen(List<Offerte> liste) {
+        int a=0,b=0,c=0;
+        for(Offerte o:liste){
+            if(o.getOrt()==Thurgau)
+                a+=o.getPreis();
+            if(o.getOrt()==Zürich)
+                b+=o.getPreis();
+            if(o.getOrt()==St_Gallen)
+                c+=o.getPreis();
+        }
+        Map<String,Integer> map=new HashMap<>();
+        map.put("Thurgau",a);
+        map.put("Zürich",b);
+        map.put("St_Gallen",c);
+
+        return map;
     }
 }
